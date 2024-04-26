@@ -1,12 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./src/app.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/app.css" />
     <title>Chatbot</title>
-</head>
-<body>
-   <h1 class="text-green-300 font-bold text-5xl text-center">Hello World</h1>
-</body>
+  </head>
+  <body class="bg-slate-700">
+    <div class="flex justify-between m-2">
+      <input
+        class="block bg-inherit p-2 text-white rounded-xl ring-1 ring-inset ring-gray-400"
+        type="text"
+        id="prompt"
+        autofocus
+        autocomplete="off"
+        placeholder="Write your prompt"
+      />
+      <button
+        class="bg-green-600 text-black p-2 rounded-xl"
+        id="generate-response"
+      >
+        Generate
+      </button>
+    </div>
+    <!-- <div class="flex-col">
+      <label class="font-bold" for="prompt">Enter Prompt</label>
+      <div>
+        <textarea name="prompt" id="prompt" cols="30" rows="10"></textarea>
+      </div>
+      <button
+        class="bg-green-400 text-black font-bold p-2 rounded-lg"
+        id="generate-response"
+      >
+        Generate
+      </button>
+    </div>
+    <div class="flex">
+      <label class="font-bold" for="output">Answer</label>
+      <textarea name="output" id="output" cols="30" rows="10"></textarea>
+    </div> -->
+    <script src="./index.js"></script>
+  </body>
 </html>
