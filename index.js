@@ -1,4 +1,34 @@
-const classList = ["flex", "text-white", "border", "rounded-xl", "p-2", "m-2"];
+const responseClassList = ["text-black", "border", "rounded-xl", "p-2", "m-2"];
+
+const loaderDivClass = [
+  "inline-block",
+  "h-8",
+  "w-8",
+  "animate-spin",
+  "rounded-full",
+  "border-4",
+  "border-solid",
+  "border-current",
+  "border-e-transparent",
+  "align-[-0.125em]",
+  "text-blue-400",
+  "motion-reduce:animate-[spin_1.5s_linear_infinite]",
+];
+const loaderSpanClass = [
+  "!absolute",
+  "!-m-px",
+  "!h-px",
+  "!w-px",
+  "!overflow-hidden",
+  "!whitespace-nowrap",
+  "!border-0",
+  "!p-0",
+  "![clip:rect(0,0,0,0)]",
+];
+const prompt = document.querySelector("#prompt");
+const generateResponse = document.querySelector("#generate-response");
+const reponseBody = document.querySelector("#responses");
+const loader = document.createElement("div");
 
 function getResponse(prompt, output) {
   const data = {
@@ -18,19 +48,35 @@ function getResponse(prompt, output) {
     const readData = async () => {
       const { value, done } = await reader.read();
       if (done) return "Stream Ended";
+      if (
+        output.innerText === "Generating Response\nLoading..." &&
+        output.innerHTML
+      ) {
+        output.innerText = "";
+        output.innerHTML = "";
+      }
       output.innerText += JSON.parse(decoder.decode(value)).response;
       readData();
     };
     readData();
   });
 }
-const prompt = document.querySelector("#prompt");
-const generateResponse = document.querySelector("#generate-response");
+
+loaderDivClass.map((value) => {
+  loader.classList.add(value);
+});
+const loaderSpan = document.createElement("span");
+loaderSpanClass.map((value) => loaderSpan.classList.add(value));
+loaderSpan.innerText = "Loading...";
+loader.append(loaderSpan);
+loader.role = "status";
 generateResponse.addEventListener("click", () => {
   const value = prompt.value;
   prompt.value = "";
   const output = document.createElement("div");
-  classList.map((value) => output.classList.add(value));
-  document.body.append(output);
+  responseClassList.map((value) => output.classList.add(value));
+  output.innerText = "Generating Response";
+  output.append(loader);
+  reponseBody.append(output);
   getResponse(value, output);
 });
